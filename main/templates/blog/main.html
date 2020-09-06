@@ -32,4 +32,19 @@
 	</div>
 </section>
 
+<section class="pagination">
+	<div class="pagination__pages">
+		{% if posts.has_previous %}
+			<a href="?page={{posts.previous_page_number}}" class="pagination__previous">Previous</a>
+		{% endif %}
+
+		<a href="?page={{posts.number}}" class="pagination__this">{{posts.number}} of {{posts.paginator.num_pages}}</a>
+
+		{% if posts.has_next %}
+			<a href="?page={{posts.next_page_number}}" class="pagination__next"{{posts.next_page_number}}>Next</a>
+		{% endif %}
+
+	</div>
+</section>
+
 {% endblock %}

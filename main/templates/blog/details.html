@@ -7,9 +7,21 @@
 
 {% block body %}
 
-<section class="main">
+<section class="post">
 	
-	{{post.body}}
+	<div class="post__wrapper">
+		
+		<h1 class="post__title">{{post.title}}</h1>
+		
+		<div class="post__details">
+			<p class="post__published">{{post.publish.date}}</p>
+			<p class="post_author">{{post.author}}</p>
+		</div>
+
+		<p class="post__body">{{post.body}}</p>
+
+
+	</div>
 
 </section>
 

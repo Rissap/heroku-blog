@@ -1,0 +1,16 @@
+{% extends 'wrapper.html' %}
+{% load static %}
+
+{% block title %} {{post.title}} {% endblock %}
+
+{% block style %}{% endblock %}
+
+{% block body %}
+
+<section class="main">
+	
+	{{post.body}}
+
+</section>
+
+{% endblock %}

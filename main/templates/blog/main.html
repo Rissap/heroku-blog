@@ -1,0 +1,35 @@
+{% extends 'wrapper.html' %}
+{% load static %}
+
+{% block title %}Noodle posts{% endblock %}
+
+{% block style %}{% endblock %}
+
+{% block body %}
+
+<section class="main">
+	<div class="main__post-list">
+		
+		{% for post in posts %}
+			<div class="main__post-wrapper">
+				
+				<div class="main__post-title">
+					<a href='{{post.get_absolute_url}}' class="main__title">{{post.title}}</a>
+				</div>
+				
+				<div class="main__post-description">
+					<p class="main__description">{{post.body|truncatewords:30|linebreaks}}</p>
+				</div>
+				
+				<div class="main__post-additional">
+					<p class="main__comments">0 comments</p>
+					<p class="main__published">{{post.publish.date}} by {{post.author}}</p>
+				</div>
+
+			</div>
+		{% endfor %}
+
+	</div>
+</section>
+
+{% endblock %}

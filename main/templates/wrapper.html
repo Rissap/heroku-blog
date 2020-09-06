@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>{% block title %}{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+	{% block style %}{% endblock %}
+</head>
+<body>
+	<section class="header">
+		<h1 class="header__title">NoodlesBlog</h1>
+		<p class="header__desciption">Welcome to the blog about everything!</p>
+	</section>
+
+	{% block body %}{% endblock %}
+
+	<section class="footer">
+		<h3 class="footer__title">This is the public blog, made by Daniil Istomin. Contact me for any questions: riisa.toro@gmail.com</h3>
+	</section>
+
+	{% block script %} {% endblock %}
+</body>
+</html>

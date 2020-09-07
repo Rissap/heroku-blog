@@ -16,13 +16,17 @@
 				<div class="main__post-title">
 					<a href='{{post.get_absolute_url}}' class="main__title">{{post.title}}</a>
 				</div>
+
+				Tags:{% for tag in post.tags.all %}
+					<a href="/?tag={{tag}}" class="post__tags">{{tag}}</a>
+				{% endfor %}
 				
 				<div class="main__post-description">
 					<p class="main__description">{{post.body|truncatewords:30|linebreaks}}</p>
 				</div>
 				
 				<div class="main__post-additional">
-					<p class="main__comments">0 comments</p>
+					<p class="main__comments">{{post.comments.count}} comments</p>
 					<p class="main__published">{{post.publish.date}} by {{post.author}}</p>
 				</div>
 
@@ -33,17 +37,16 @@
 </section>
 
 <section class="pagination">
-	<div class="pagination__pages">
-		{% if posts.has_previous %}
-			<a href="?page={{posts.previous_page_number}}" class="pagination__previous">Previous</a>
+	<div class="pagination__wrapper">
+		{% if page_obj.has_previous %}
+			<a href="?page={{page_obj.previous_page_number}}" class="pagination__previous">Previous</a>
 		{% endif %}
 
-		<a href="?page={{posts.number}}" class="pagination__this">{{posts.number}} of {{posts.paginator.num_pages}}</a>
+		<a class="pagination__this">{{page_obj.number}} of {{page_obj.paginator.num_pages}}</a>
 
-		{% if posts.has_next %}
-			<a href="?page={{posts.next_page_number}}" class="pagination__next"{{posts.next_page_number}}>Next</a>
+		{% if page_obj.has_next %}
+			<a href="?page={{page_obj.next_page_number}}" class="pagination__next"{{page_obj.next_page_number}}>Next</a>
 		{% endif %}
-
 	</div>
 </section>
 

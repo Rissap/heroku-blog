@@ -15,15 +15,18 @@ from . import forms
 
 # see comments below to explore the 'raw' listview class
 class Main(ListView):
+	model = models.Post
 	context_object_name = 'posts'
 	paginate_by=10
 	template_name = 'blog/main.html'
 
+	"""
 	def get_queryset(self):
 		tag = self.request.GET.get("tag")
 		if tag:
 			return models.Post.published.filter(tags__slug=tag)
 		return models.Post.published.all()
+	"""
 
 
 class Details(TemplateView):

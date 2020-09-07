@@ -102,7 +102,7 @@ class PostShare(TemplateView):
 			body = "Greetings! Comment from {0}:\n\"{1}\".\n\nRead at {2}.\n\nBest withes, NoodlesBlog Team."\
 				.format(cleaned["name"], cleaned["comment"], cleaned["post_url"])
 
-			send_mail(title, body, cleaned["email"], [cleaned["to"]])
+			send_mail(title, body, "riisa.toro@gmail.com", [cleaned["to"]])
 			mail = True
 
 		args = {"mail": True, "send_mail": mail}

@@ -20,9 +20,12 @@ class Main(ListView):
 	template_name = 'blog/main.html'
 
 	def get_queryset(self):
-		tag = self.request.GET.get("tag")
-		if tag:
-			return models.Post.published.filter(tags__slug=tag)
+		try:
+			tag = self.request.GET.get("tag")
+			if tag:
+				return models.Post.published.filter(tags__slug=tag)
+		except Exception as E: 
+			print("[EXCEPTION]", E)
 		return models.Post.published.all()
 
 

@@ -3,6 +3,7 @@ import django_heroku
 
 from pathlib import Path
 from dotenv import load_dotenv
+from boto.s3.connection import S3Connection
 
 load_dotenv()
 
@@ -109,8 +110,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'admin@admin.com')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'admin')
+EMAIL_HOST_USER = S3Connection(os.environ.get('EMAIL_HOST_USER'), os.environ.get('EMAIL_HOST_USER'))
+EMAIL_HOST_PASSWORD = S3Connection(os.environ.get('EMAIL_HOST_PASSWORD'), os.environ.get('EMAIL_HOST_PASSWORD'))
 
 
 django_heroku.settings(locals())

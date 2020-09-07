@@ -12,6 +12,7 @@ python-dotenv = "*"
 gunicorn = "*"
 pytz = "*"
 django-taggit = "*"
+boto = "*"
 
 [requires]
 python_version = "3.8"

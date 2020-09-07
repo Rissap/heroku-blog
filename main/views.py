@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.core.mail import send_mail
@@ -40,6 +41,10 @@ class Details(TemplateView):
 		args["post"] = post
 		args["comments"] = post.comments.filter(active=True)
 		args["comment_form"] = forms.CommentForm()
+
+		post_tags = post.tags.values_list('id', flat=True)
+		similar = models.Post.published.filter(tags__in=post_tags).exclude(id=post.id)
+		args["similars"] = similar.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
 		return render(request, self.template_name, args)
 
 	def post(self, request, year, month, day, post):
@@ -62,6 +67,10 @@ class Details(TemplateView):
 		
 		args["post"] = post
 		args["comments"] = post.comments.filter(active=True)	
+		
+		post_tags = post.tags.values_list('id', flat=True)
+		similar = models.Post.published.filter(tags__in=post_tags).exclude(id=post.id)
+		args["similars"] = similar.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
 		return render(request, self.template_name, args)
 
 

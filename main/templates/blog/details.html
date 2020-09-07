@@ -31,7 +31,17 @@
 		<a href="{{post.get_absolute_url}}share/" class="post__share">Share via email</a>
 
 		<p class="post__body">{{post.body}}</p>
+	</div>
 
+	<div class="similar">
+		<h2 class="similar__header">Similar posts:</h2>
+		{% for post in similars%}
+			<div class="similar__wrapper">
+				<a href="{{post.get_absolute_url}}" class="similar__title">{{post.title}}</a>
+			</div>
+		{% empty %}
+			<p class="similar__error">There is no similar posts yet.</p>
+		{% endfor %}
 
 	</div>
 

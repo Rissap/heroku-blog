@@ -10,6 +10,8 @@ django = "*"
 django-heroku = "*"
 python-dotenv = "*"
 gunicorn = "*"
+pytz = "*"
+django-taggit = "*"
 
 [requires]
 python_version = "3.8"

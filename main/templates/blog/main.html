@@ -1,5 +1,6 @@
 {% extends 'wrapper.html' %}
 {% load static %}
+{% load blog_tags %}
 
 {% block title %}Noodle posts{% endblock %}
 
@@ -8,8 +9,8 @@
 {% block body %}
 
 <section class="main">
-	<div class="main__post-list">
-		
+	<div class="main__list">
+		<p class="main__amount">Total posts: {% total_posts %}</p>
 		{% for post in posts %}
 			<div class="main__post-wrapper">
 				
@@ -22,7 +23,7 @@
 				{% endfor %}
 				
 				<div class="main__post-description">
-					<p class="main__description">{{post.body|truncatewords:30|linebreaks}}</p>
+					<p class="main__description">{{post.body|truncatewords:30|linebreaks|markdown}}</p>
 				</div>
 				
 				<div class="main__post-additional">
@@ -32,10 +33,17 @@
 
 			</div>
 		{% endfor %}
+	</div>
 
+	<div class="main__latest">
+		<h2 class="main__title">Latest</h2>
+		{% for post in latest_posts %}
+			<a href="{{post.get_absolute_url}}" class="main__title main__title_latest">{{post.title}}</a>
+		{% endfor %}
 	</div>
 </section>
 
+{% if user.is_authenticated %}
 <section class="pagination">
 	<div class="pagination__wrapper">
 		{% if page_obj.has_previous %}
@@ -49,5 +57,5 @@
 		{% endif %}
 	</div>
 </section>
-
+{% endif %}
 {% endblock %}

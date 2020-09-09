@@ -17,16 +17,20 @@ from . import forms
 class Main(ListView):
 	model = models.Post
 	context_object_name = 'posts'
-	paginate_by=10
+	paginate_by = 10
 	template_name = 'blog/main.html'
 
-	"""
 	def get_queryset(self):
 		tag = self.request.GET.get("tag")
 		if tag:
-			return models.Post.published.filter(tags__slug=tag)
-		return models.Post.published.all()
-	"""
+			posts =  models.Post.published.filter(tags__slug=tag)
+		else:
+			posts = models.Post.published.all()
+
+		if not self.request.user.is_authenticated:
+			return posts[:10]
+		return posts
+
 
 
 class Details(TemplateView):

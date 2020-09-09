@@ -99,8 +99,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-MEDIA_URL = "/img/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'img')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'main/static/img/')
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

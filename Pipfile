@@ -13,6 +13,9 @@ gunicorn = "*"
 pytz = "*"
 django-taggit = "*"
 boto = "*"
+sib-api-v3-sdk = "*"
+markdown = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.8"

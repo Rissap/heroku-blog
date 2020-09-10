@@ -116,7 +116,7 @@ class Register(TemplateView):
         if password != password2:
             return redirect("/auth/")
 
-        user = User.objects.get(username=username)
+        user = User.objects.filter(username=username)
         print(user)
         if user is not None:
             return render(request, self.template_name, {"error": True, "text": "This user already exists!"})

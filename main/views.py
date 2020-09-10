@@ -118,7 +118,7 @@ class Register(TemplateView):
 
         user = User.objects.filter(username=username)
         print(user)
-        if user is not None:
+        if len(user) > 0:
             return render(request, self.template_name, {"error": True, "text": "This user already exists!"})
 
 

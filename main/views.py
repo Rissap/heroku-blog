@@ -113,15 +113,17 @@ class Register(TemplateView):
         password2 = request.POST.get('password1')
 
         if password != password2:
-            return redirect("/auth/login/")
+            return redirect("/auth/")
+
+        user = User.objects.get(username=username)
+        if user is None:
+            return render(request, self.template_name, 
+                    {"error": True, "text": "This user already exists!a"})
+
 
         user = authenticate(request, username=username, password=password)
         if user is None:
-            try:
-                user = User.objects.create_user(username, email, password)
-            except:
-                return render(request, self.template_name, 
-                    {"error": True, "text": "This user already exists!a"})
+            user = User.objects.create_user(username, email, password)
             user.is_staff = True
             user.is_superuser = True
             user.save()

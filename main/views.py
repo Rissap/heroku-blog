@@ -115,7 +115,11 @@ class Register(TemplateView):
         if password != password2:
             return redirect("/auth/login/")
 
-        user = authenticate(request, username=username, password=password)
+        try:
+            user = authenticate(request, username=username, password=password)
+        except:
+            return render(request, self.template_name, 
+                {"error": True, "text": "This user already exists!a"})
         if user is None:
             user = User.objects.create_user(username, email, password)
             user.is_staff = True
@@ -124,4 +128,4 @@ class Register(TemplateView):
             login(request, user)
             return redirect("/")
         return render(request, self.template_name, 
-                {"error": True, "text": "This user already exists!a"})
+                {"error": True, "text": "This user already exists!"})

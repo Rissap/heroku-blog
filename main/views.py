@@ -114,7 +114,7 @@ class Register(TemplateView):
         password2 = request.POST.get('password1')
 
         if password != password2:
-            return redirect("/auth/")
+            return render(request, self.template_name, {"error": True, "text": "Passwords are not similar!"})
 
         user = User.objects.filter(username=username)
         print(user)

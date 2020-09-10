@@ -22,7 +22,9 @@
 		{% endfor %}
 		</div>
 
+		{% if post.image %}
 		<img src="{{ post.image.url }}" alt="post_image" class="post__img">
+		{% endif %}
 		
 		<div class="post__details">
 			<p class="post__published light-text_theme">{{post.publish}} by {{post.author}}</p>

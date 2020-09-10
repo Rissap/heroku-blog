@@ -8,9 +8,9 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('DEBUG', "qwerty")
+SECRET_KEY = os.environ.get('SECRET_KEY', "qwerty")
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 

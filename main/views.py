@@ -2,139 +2,121 @@ from django.db.models import Count
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.core.mail import send_mail
+from django.contrib.auth import login
+from django.contrib.auth import logout
 from django.views.generic import ListView
-from django.core.paginator import Paginator
-from django.core.paginator import EmptyPage
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
-from django.core.paginator import PageNotAnInteger
 
 from . import models
 from . import forms
 
 
-# see comments below to explore the 'raw' listview class
 class Main(ListView):
-	model = models.Post
-	context_object_name = 'posts'
-	paginate_by = 10
-	template_name = 'blog/main.html'
+    model = models.Post
+    context_object_name = 'posts'
+    paginate_by = 10
+    template_name = 'blog/main.html'
 
-	def get_queryset(self):
-		tag = self.request.GET.get("tag")
-		if tag:
-			posts =  models.Post.published.filter(tags__slug=tag)
-		else:
-			posts = models.Post.published.all()
+    def get_queryset(self):
+        tag = self.request.GET.get("tag")
+        if tag:
+            posts =  models.Post.published.filter(tags__slug=tag)
+        else:
+            posts = models.Post.published.all()
 
-		if not self.request.user.is_authenticated:
-			return posts[:10]
-		return posts
-
+        if not self.request.user.is_authenticated:
+            return posts[:10]
+        return posts
 
 
 class Details(TemplateView):
-	template_name = "blog/details.html"
+    template_name = "blog/details.html"
 
-	def get(self, request, year, month, day, post):
-		args = {}
-		post = get_object_or_404(models.Post,
-			status='published',
-			slug=post, 
-			publish__year=year,
-			publish__month=month,
-			publish__day=day)
+    def get(self, request, year, month, day, post):
+        args = {}
+        post = get_object_or_404(models.Post,
+            status='published',
+            slug=post, 
+            publish__year=year,
+            publish__month=month,
+            publish__day=day)
 
-		args["post"] = post
-		args["comments"] = post.comments.filter(active=True)
-		args["comment_form"] = forms.CommentForm()
+        args["post"] = post
+        args["comments"] = post.comments.filter(active=True)
+        args["comment_form"] = forms.CommentForm()
 
-		post_tags = post.tags.values_list('id', flat=True)
-		similar = models.Post.published.filter(tags__in=post_tags).exclude(id=post.id)
-		args["similars"] = similar.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
-		return render(request, self.template_name, args)
+        post_tags = post.tags.values_list('id', flat=True)
+        similar = models.Post.published.filter(tags__in=post_tags).exclude(id=post.id)
+        args["similars"] = similar.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
+        return render(request, self.template_name, args)
 
-	def post(self, request, year, month, day, post):
-		args = {}
-		post = get_object_or_404(models.Post,
-			status='published',
-			slug=post, 
-			publish__year=year,
-			publish__month=month,
-			publish__day=day)
-		comment = forms.CommentForm(request.POST)
-		
-		if comment.is_valid():
-			comment = comment.save(commit=False)
-			comment.post = post
-			comment.save()
-			args["comment_form"] = forms.CommentForm()
-		else:
-			args["comment_form"] = forms.CommentForm(request.POST)
-		
-		args["post"] = post
-		args["comments"] = post.comments.filter(active=True)	
-		
-		post_tags = post.tags.values_list('id', flat=True)
-		similar = models.Post.published.filter(tags__in=post_tags).exclude(id=post.id)
-		args["similars"] = similar.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
-		return render(request, self.template_name, args)
-
-
-class PostShare(TemplateView):
-	template_name = "blog/share.html"
-	
-	def get(self, request, year, month, day, post):
-		args = {}
-
-		args["post"] = get_object_or_404(models.Post,
-			status='published',
-			slug=post, 
-			publish__year=year,
-			publish__month=month,
-			publish__day=day)
-		
-		return render(request, self.template_name, args)
-
-	def post(self, request, year, month, day, post):
-		mail = False
-		mail_form = forms.EmailPostForm(request.POST)
-
-		if mail_form.is_valid():
-			cleaned = mail_form.cleaned_data
-			title = "NoodlesBlog|Message from {0}".format(cleaned["name"])
-			body = "Greetings! Comment from {0}:\n\"{1}\".\n\nRead at {2}.\n\nBest withes, NoodlesBlog Team."\
-				.format(cleaned["name"], cleaned["comment"], cleaned["post_url"])
-
-			send_mail(title, body, "riisa.toro@gmail.com", [cleaned["to"]])
-			mail = True
-
-		args = {"mail": True, "send_mail": mail}
-		return render(request, self.template_name, args)
+    def post(self, request, year, month, day, post):
+        args = {}
+        post = get_object_or_404(models.Post,
+            status='published',
+            slug=post, 
+            publish__year=year,
+            publish__month=month,
+            publish__day=day)
+        comment = forms.CommentForm(request.POST)
+        
+        if comment.is_valid():
+            comment = comment.save(commit=False)
+            comment.post = post
+            comment.save()
+            args["comment_form"] = forms.CommentForm()
+        else:
+            args["comment_form"] = forms.CommentForm(request.POST)
+        
+        args["post"] = post
+        args["comments"] = post.comments.filter(active=True)    
+        
+        post_tags = post.tags.values_list('id', flat=True)
+        similar = models.Post.published.filter(tags__in=post_tags).exclude(id=post.id)
+        args["similars"] = similar.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
+        return render(request, self.template_name, args)
 
 
-"""
-class Main(TemplateView):
-	template_name = "blog/main.html"
+class Auth(TemplateView):
+    template_name = 'blog/auth.html'
 
-	def get(self, request):
-		args = {}
 
-		post_objects = models.Post.published.all()
-		paginator = Paginator(post_objects, 10)
-		page = request.GET.get('page')
+class Login(TemplateView):
+    template_name = "blog/auth.html"
 
-		try:
-			args["posts"] = paginator.page(page)
-		except PageNotAnInteger:
-			args["posts"] = paginator.page(1)
-		except EmptyPage:
-			args["posts"] = paginator.page(paginator.num_pages)
+    def post(self, request):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+        return redirect('/')
 
-		args["page"] = page
-		return render(request, self.template_name, args)
 
-	def post(self, request):
-		args = {}
-		return render("post")
-"""
+class Logout(TemplateView):
+    def get(self, request):
+        logout(request)
+        return redirect("/")
+
+
+class Register(TemplateView):
+    def post(self, request):
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        password2 = request.POST.get('password1')
+
+        if password != password2:
+            return redirect("/auth/login/")
+
+        user = authenticate(request, username=username, password=password)
+        if user is None:
+            user = User.objects.create_user(username, email, password)
+            user.is_staff = True
+            user.is_superuser = True
+            user.save()
+            login(request, user)
+        return redirect("/")

@@ -92,8 +92,7 @@ class Login(TemplateView):
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is None:
-            return render(request, self.template_name, 
-                {"error": True, "text": "Invalid username or password"})
+            return render(request, self.template_name, {"error": True, "text": "Invalid username or password"})
 
         login(request, user)
         return redirect('/')
@@ -106,6 +105,8 @@ class Logout(TemplateView):
 
 
 class Register(TemplateView):
+    template_name = "blog/auth.html"
+
     def post(self, request):
         email = request.POST.get('email')
         username = request.POST.get('username')
@@ -116,9 +117,9 @@ class Register(TemplateView):
             return redirect("/auth/")
 
         user = User.objects.get(username=username)
-        if user is None:
-            return render(request, self.template_name, 
-                    {"error": True, "text": "This user already exists!a"})
+        print(user)
+        if user is not None:
+            return render(request, self.template_name, {"error": True, "text": "This user already exists!"})
 
 
         user = authenticate(request, username=username, password=password)
@@ -129,5 +130,4 @@ class Register(TemplateView):
             user.save()
             login(request, user)
             return redirect("/")
-        return render(request, self.template_name, 
-                {"error": True, "text": "This user already exists!"})
+        return render(request, self.template_name, {"error": True, "text": "This user already exists!"})

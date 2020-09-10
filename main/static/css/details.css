@@ -1,0 +1,174 @@
+@media only screen and (min-width: 320px) {
+	
+	.post__title {
+		text-align: center;
+		margin: 20px 0px;
+	}
+
+	.post__tag-wrapper {
+		margin: 0 10px;
+	}
+
+	.post__published {
+		margin: 10px 0;
+		margin-right: 10px;
+	}
+
+	.post__body > p {
+		width: 95%;
+		margin: 15px auto;
+		text-align: justify;
+	}
+
+	.similar__header {
+		text-align: center;
+		margin-top: 30px;
+		margin-bottom: 20px;
+	}
+
+	.similar__title {
+		display: block;
+		width: 90%;
+		margin: 10px auto;
+	}
+
+	.comment__add {
+		display: block;
+		margin-top: 30px;
+		text-align: center;
+	}
+
+	.comment__total {
+		margin: 20px;
+	}
+
+	.comment__comment-wrapper {
+		width: 95%;
+		margin: 0 auto;
+	}
+
+	.comment__title {
+		font-size: 1.2em;
+		margin-bottom: 5px;
+	}
+
+	.comment__body {
+		font-size: 0.9em;
+		display: block;
+		width: 90%;
+		margin: 5px auto 25px;
+		border-bottom: 1px solid #171716;
+	}
+
+	/* image & django form style */
+	.post__img {
+		width: 310px;
+		display: block;
+		margin: 0px auto;
+	}
+
+	label,
+	#id_name, 
+	#id_email,
+	#id_body,
+	.comment__submit {
+		display: block;
+		width: 280px;
+		margin: 5px auto;
+	}
+
+	.comment__submit {
+		width: 285px;
+	}
+
+	#id_body {
+		display: block;
+		height: 100px;
+	}
+
+}
+
+
+@media only screen and (min-width: 576px) {
+	/* image & django form style */
+	.post__img {
+		width: 570px;
+	}
+
+	label,
+	#id_name, 
+	#id_email,
+	#id_body,
+	.comment__submit {
+		display: block;
+		width: 560px;
+		margin: 5px auto;
+	}
+
+	.comment__submit {
+		width: 555px;
+	}
+}
+
+
+@media only screen and (min-width: 768px) {
+	.post__img {
+		width: 760px;
+	}
+
+	label,
+	#id_name, 
+	#id_email,
+	#id_body,
+	.comment__submit {
+		display: block;
+		width: 755px;
+		margin: 5px auto;
+	}
+
+	.comment__submit {
+		width: 750px;
+	}
+}
+
+
+@media only screen and (min-width: 992px) {
+	.post__img {
+		width: 985px;
+	}
+
+	label,
+	#id_name, 
+	#id_email,
+	#id_body,
+	.comment__submit {
+		display: block;
+		width: 985px;
+		margin: 5px auto;
+	}
+
+	.comment__submit {
+		width: 750px;
+	}
+}
+
+
+@media only screen and (min-width: 1200px) {
+	.post__img {
+		width: 1190px;
+	}
+
+	label,
+	#id_name, 
+	#id_email,
+	#id_body,
+	.comment__submit {
+		display: block;
+		width: 1195px;
+		margin: 5px auto;
+	}
+
+	.comment__submit {
+		width: 750px;
+	}
+}

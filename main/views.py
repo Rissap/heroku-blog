@@ -91,8 +91,11 @@ class Login(TemplateView):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
+        if user is None:
+            return render(request, self.template_name, 
+                {"error": True, "text": "Invalid username or password"})
+
+        login(request, user)
         return redirect('/')
 
 
@@ -119,4 +122,6 @@ class Register(TemplateView):
             user.is_superuser = True
             user.save()
             login(request, user)
-        return redirect("/")
+            return redirect("/")
+        return render(request, self.template_name, 
+                {"error": True, "text": "This user already exists!a"})

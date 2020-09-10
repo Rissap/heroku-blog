@@ -4,41 +4,38 @@
 
 {% block title %}Noodle posts{% endblock %}
 
-{% block style %}{% endblock %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+{% endblock %}
 
 {% block body %}
 
 <section class="main">
 	<div class="main__list">
-		<p class="main__amount">Total posts: {% total_posts %}</p>
+		<p class="main__amount light-text_theme">total posts: {% total_posts %}</p>
 		{% for post in posts %}
 			<div class="main__post-wrapper">
 				
 				<div class="main__post-title">
-					<a href='{{post.get_absolute_url}}' class="main__title">{{post.title}}</a>
+					<a href='{{post.get_absolute_url}}' class="main__title header_theme">{{post.title}}</a>
 				</div>
 
-				Tags:{% for tag in post.tags.all %}
-					<a href="/?tag={{tag}}" class="post__tags">{{tag}}</a>
-				{% endfor %}
+				<div class="main__tag-wrapper">
+					{% for tag in post.tags.all %}
+					<a href="/?tag={{tag}}" class="post__tags tag_theme">{{tag}}</a>
+					{% endfor %}
+				</div>
 				
 				<div class="main__post-description">
-					<p class="main__description">{{post.body|truncatewords:30|linebreaks|markdown}}</p>
+					<p class="main__description">{{ post.body|truncatewords:50 }}</p>
 				</div>
 				
 				<div class="main__post-additional">
-					<p class="main__comments">{{post.comments.count}} comments</p>
-					<p class="main__published">{{post.publish.date}} by {{post.author}}</p>
+					<p class="main__comments light-text_theme">{{post.comments.count}} comments</p>
+					<p class="main__published light-text_theme">{{post.publish.date}} by {{post.author}}</p>
 				</div>
 
 			</div>
-		{% endfor %}
-	</div>
-
-	<div class="main__latest">
-		<h2 class="main__title">Latest</h2>
-		{% for post in latest_posts %}
-			<a href="{{post.get_absolute_url}}" class="main__title main__title_latest">{{post.title}}</a>
 		{% endfor %}
 	</div>
 </section>
@@ -47,13 +44,13 @@
 <section class="pagination">
 	<div class="pagination__wrapper">
 		{% if page_obj.has_previous %}
-			<a href="?page={{page_obj.previous_page_number}}" class="pagination__previous">Previous</a>
+			<a href="?page={{page_obj.previous_page_number}}" class="pagination__previous link_theme">Previous</a>
 		{% endif %}
 
 		<a class="pagination__this">{{page_obj.number}} of {{page_obj.paginator.num_pages}}</a>
 
 		{% if page_obj.has_next %}
-			<a href="?page={{page_obj.next_page_number}}" class="pagination__next"{{page_obj.next_page_number}}>Next</a>
+			<a href="?page={{page_obj.next_page_number}}" class="pagination__next link_theme">Next</a>
 		{% endif %}
 	</div>
 </section>

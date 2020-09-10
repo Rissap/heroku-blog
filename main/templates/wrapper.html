@@ -6,24 +6,38 @@
 	<title>{% block title %}{% endblock %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
 	<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@300&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
 	<!--
-	font-family: 'Grandstander', cursive;
+	
 	-->
 	{% block style %}{% endblock %}
 </head>
 <body>
 	<section class="header">
-		<h1 class="header__title">NoodlesBlog</h1>
-		<p class="header__desciption">Welcome to the blog about everything!</p>
+		<div class="header__wrapper">
+			<div class="header__caption">
+				<h1 class="header__title">NoodlesBlog</h1>
+				<p class="header__description light-text_theme">Welcome to the blog about everything!</p>
+			</div>
+			
+			<div class="header__menu">
+				{% if user.is_authenticated %}
+					<a href="/admin/" class="header__admin link_theme">Admin panel</a>
+					<a href="/auth/logout/" class="header__logout link_theme">Logout</a>
+				{% else %}
+					<a href="/auth/" class="header__login link_theme">Login or create your profile</a>
+				{% endif %}
+			</div>
+		</div>
 	</section>
 
 	{% block body %}{% endblock %}
 
 	<section class="footer">
-		<h3 class="footer__title">This is a public blog, made by Daniil Istomin. Contact me for any questions: riisa.toro@gmail.com</h3>
+		<p class="footer__title">This is a public blog, made by Daniil Istomin. Contact me for any questions: riisa.toro@gmail.com</p>
 	</section>
 
 	{% block script %} {% endblock %}

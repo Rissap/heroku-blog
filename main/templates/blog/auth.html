@@ -3,7 +3,8 @@
 
 {% block title %} Auth|NoodleBlog {% endblock %}
 
-{% block style %}{% endblock %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/auth.css' %}">{% endblock %}
 
 {% block body %}
 
@@ -14,22 +15,24 @@
 	<h2 class="auth__error-text">{{text}}</h2>
 	{% endif %}
 
-	<form action="/auth/login/" method="POST" class="auth__login">
-		{% csrf_token %}
-		<input type="text" class="auth__useraname" placeholder="Username" name="username">
-		<input type="password" class="auth__password" placeholder="Password" name="password">
-		<button class="auth__btn">Login</button>
-	</form>
+	<div class="auth__wrapper">
 
-	<form action="/auth/register/" method="POST" class="auth__register">
-		{% csrf_token %}
-		<input type="text" class="auth__useraname" placeholder="Username" name="username">
-		<input type="text" class="auth__email" placeholder="email" name="email">
-		<input type="password" class="auth__password" placeholder="Password" name="password">
-		<input type="password" class="auth__password" placeholder="Password again" name="password1">
-		<button class="auth__btn">Register</button>
-	</form>
+		<form action="/auth/login/" method="POST" class="auth__login block_style">
+			{% csrf_token %}
+			<input type="text" class="auth__useraname block_style" placeholder="Username" name="username">
+			<input type="password" class="auth__password block_style" placeholder="Password" name="password">
+			<button class="auth__btn btn_theme">Login</button>
+		</form>
 
+		<form action="/auth/register/" method="POST" class="auth__register block_style">
+			{% csrf_token %}
+			<input type="text" class="auth__useraname block_style" placeholder="Username" name="username">
+			<input type="text" class="auth__email block_style" placeholder="Email" name="email">
+			<input type="password" class="auth__password block_style" placeholder="Password" name="password">
+			<input type="password" class="auth__password block_style" placeholder="Password again" name="password1">
+			<button class="auth__btn btn_theme">Register</button>
+		</form>
+	</div>
 </section>
 
 {% endblock %}

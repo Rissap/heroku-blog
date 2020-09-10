@@ -1,0 +1,56 @@
+@media only screen and (min-width: 320px) {
+	.main__post-wrapper {
+		margin: 25px 10px;
+	}
+
+	.main__amount {
+		margin: 10px 5px 0px;
+		text-align: right;
+		font-size: 0.8em;
+		color: #877D6F;
+	}
+
+	.main__description {
+		font-size: 0.9em;
+		padding: 5px;
+		text-align: justify;
+	}
+
+	.main__comments,
+	.main__published {
+		font-size: 0.8em;
+		text-align: right;
+	}
+
+	.pagination__wrapper {
+		text-align: center;
+		margin: 15px 0;
+	}
+
+}
+
+
+@media only screen and (min-width: 576px) {
+
+}
+
+
+@media only screen and (min-width: 768px) {
+	.main__comments,
+	.main__published {
+		margin-right: 25px;
+	}
+}
+
+
+@media only screen and (min-width: 992px) {
+	.main__post-wrapper {
+		width: 80%;
+		margin-left: 50px;
+	}
+}
+
+
+@media only screen and (min-width: 1200px) {
+
+}

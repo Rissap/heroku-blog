@@ -1,0 +1,156 @@
+/*
+HERE IS A DEFAULT STYLE FOR
+* header
+* footer
+*/
+
+* {
+	font-family: 'Noto Serif', serif;
+}
+
+.block_style {
+	display: block;
+}
+
+.link_theme {
+	color: #8E7713;
+	text-decoration: none;
+}
+
+.link_theme:hover {
+	color: #D2B00A;
+	text-decoration: underline;
+	transition: 0.5s;
+}
+
+.link_theme:active {
+	color: #D2B00A;
+	text-decoration: none;
+	transition: 0.5s;
+}
+
+.main__tag-wrapper,
+.post__tag-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.tag_theme {
+	color: #D2B00A;
+	text-decoration: none;
+	border-radius: 5px;
+	background-color: #171716;
+	margin: 3px;
+	padding: 0 5px;
+}
+
+.btn_theme {
+	color: #D2B00A;
+	text-decoration: none;
+	border-radius: 5px;
+	background-color: #171716;
+	margin: 3px;
+	padding: 0 5px;
+}
+
+.header_theme {
+	font-family: 'Grandstander', cursive;
+	font-size: 1.7em;
+	color: #450A36;
+}
+
+.light-text_theme {
+	font-size: 0.8em;
+	text-align: right;
+	color: #877D6F;
+}
+
+@media only screen and (min-width: 320px) {
+
+	.header__wrapper {
+		background-color: #171716;
+		width: 100%;
+	}
+
+	.header__title {
+		color: #F9E2AA;
+		font-family: 'Grandstander', cursive;
+		font-size: 2em;
+		text-align: center;
+		padding: 15px 0px;
+	}
+
+	.header__description {
+		text-align: center;
+	}
+
+	.header__menu {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.header__admin,
+	.header__logout,
+	.header__login {
+		display: block;
+		margin: 25px;
+	}
+
+
+	.footer__title {
+		display: block;
+		width: 100%;
+		padding: 20px 0px;
+		color: #877D6F;
+		background-color: #171716;
+		text-align: center;
+		font-size: 0.7em;
+	}
+
+}
+
+@media only screen and (min-width: 576px) {
+
+}
+
+
+@media only screen and (min-width: 768px) {
+	
+	.header__wrapper {
+		display: flex;
+		align-items: center;
+		height: 100px;
+		align-content: space-around;
+	}
+
+	.header__caption {
+		padding-left: 20px;
+		width: 850px;
+	}
+
+	.header__menu {
+		height: 100%;
+	}
+
+	.header__title,
+	.header__description {
+		text-align: left;
+	}
+
+	.header__admin,
+	.header__logout,
+	.header__login {
+		display: flex;
+		justify-content: center;
+  		align-items: center;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+
+}
+
+@media only screen and (min-width: 1200px) {
+
+}

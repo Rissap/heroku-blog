@@ -8,6 +8,10 @@ HERE IS A DEFAULT STYLE FOR
 	font-family: 'Noto Serif', serif;
 }
 
+.header__link {
+	text-decoration: none;
+}
+
 .block_style {
 	display: block;
 }
